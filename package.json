@@ -1,0 +1,24 @@
+{
+  "name": "backblaze_test",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.3.1"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.600.0",
+    "@aws-sdk/s3-request-presigner": "^3.600.0",
+    "axios": "^1.7.2",
+    "backblaze-b2": "^1.7.0",
+    "buffer": "^6.0.3",
+    "dotenv": "^16.4.5",
+    "multer": "1.4.5-lts.1",
+    "uuid": "^10.0.0"
+  }
+}
