@@ -4,14 +4,14 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: 'index.html', // Entry point for the build
+        main: 'index.html',
       },
     },
-    outDir: 'dist', // Default output directory for production builds
-    assetsDir: 'assets', // Directory to place static assets
+    outDir: 'dist',
+    assetsDir: 'assets',
   },
   server: {
-    port: 3000, // Development server port
-    open: true, // Automatically open the app in the browser on server start
+    port: 3000,
+    open: true,
   },
 });

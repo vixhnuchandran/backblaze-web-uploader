@@ -8,7 +8,6 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
         uploadButton.addEventListener("click", async () => {
           const file = fileInput.files[0]
 
-          console.log(file)
           const bucketName = "storybrain-test-bucket"
           const keyName = Date.now() + "-" + file.name
 
