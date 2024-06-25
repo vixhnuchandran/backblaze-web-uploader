@@ -99,9 +99,7 @@ document.addEventListener("DOMContentLoaded", async() => {
               "Content-Type": file.type,
               "X-Amz-Content-Sha256": fileHash,
               "X-Amz-Date": new Date().toISOString().replace(/[:-]|\.\d{3}/g, '') + 'Z',
-              Authorization:
-                "AWS4-HMAC-SHA256 Credential=0056f9737d378640000000003/20240625/us-east-1/execute-api/aws4_request, SignedHeaders=content-length;content-type;host;x-amz-date, Signature=06c62bfe2733184977e406cdd699589bc3434caed8fef4e2ea44e813b4538cf8",
-                
+              'Authorization': 'AWS4-HMAC-SHA256 Credential=0056f9737d378640000000004/20240625/us-east-1/execute-api/aws4_request, SignedHeaders=content-length;content-type;host;x-amz-date, Signature=ab79c9699999da958789b9e9176fa647c5e78c8ec047ae163679f6771c7f0993'
             },
             data: file,
           };
