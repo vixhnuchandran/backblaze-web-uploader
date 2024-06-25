@@ -10,7 +10,7 @@ import {getSignedUrl} from '@aws-sdk/s3-request-presigner';
           const file = fileInput.files[0]
 
           const bucketName = "storybrain-test-bucket"
-          const keyName = Date.now() + "-" + file.name
+          const keyName = Date.now() + "-" + file.name.replace(/\s/g, "")
 
           if (!file) {
             responseDiv.textContent = "Please select a file."
