@@ -1,4 +1,5 @@
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
+import { S3Client, PutObjectCommand, } from "@aws-sdk/client-s3"
+import {getSignedUrl} from '@aws-sdk/s3-request-presigner';
 
       document.addEventListener("DOMContentLoaded", async () => {
         const uploadButton = document.getElementById("uploadButton")
@@ -24,14 +25,14 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
             },
           })
 
+          const expiresIn = 7 * 24 * 60 * 60;
+          const command = new PutObjectCommand({ Bucket: bucketName, Key: keyName });
+          const signedUrl = await getSignedUrl(s3, command, { expiresIn })
+
           try {
-            await s3.send(
-              new PutObjectCommand({
-                Bucket: bucketName,
-                Key: keyName,
-                Body: file,
-              })
-            )
+            const putRes = await axios.put(signedUrl, file);
+            console.log("putRes: ", putRes)
+
             const fileUrl = `https://f005.backblazeb2.com/file/${bucketName}/${keyName}`
 
             responseDiv.textContent = fileUrl
