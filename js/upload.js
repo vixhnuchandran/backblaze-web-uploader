@@ -31,7 +31,6 @@ import {getSignedUrl} from '@aws-sdk/s3-request-presigner';
 
           try {
             const putRes = await axios.put(signedUrl, file);
-            console.log("putRes: ", putRes)
 
             const fileUrl = `https://f005.backblazeb2.com/file/${bucketName}/${keyName}`
 
