@@ -4,61 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>File Upload to Backblaze B2</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <style>
-      /* styles.css */
 
-      body {
-        font-family: "Arial", sans-serif;
-        background-color: #f4f4f9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-      }
-
-      .container {
-        background-color: #fff;
-        padding: 20px 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: center;
-      }
-
-      h1 {
-        margin-bottom: 20px;
-        color: #333;
-      }
-
-      .file-input {
-        margin-bottom: 20px;
-      }
-
-      button {
-        padding: 10px 20px;
-        background-color: #28a745;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-
-      button:hover {
-        background-color: #218838;
-      }
-
-      #response {
-        margin-top: 20px;
-        padding: 10px;
-        background-color: #f0f0f0;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        word-break: break-all;
-      }
-    </style>
     <div class="container">
       <h1>Upload File to Backblaze B2</h1>
       <input type="file" id="fileInput" name="file" required />
@@ -66,50 +15,6 @@
       <div id="response"></div>
     </div>
 
-    <script type="module">
-      import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-      import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-      import axios from "axios";
-
-      const endpoint = "https://s3.us-east-005.backblazeb2.com";
-      const region = "us-east-005";
-      const bucket = "storybrain-test-bucket";
-      const APPLICATION_KEY_ID = "6f9737d37864";
-      const APPLICATION_KEY = "0051182a8210ef6d6cb7c48823385fe13500e118cb";
-
-      document.addEventListener("DOMContentLoaded", async () => {
-        const uploadButton = document.getElementById("uploadButton");
-        const fileInput = document.getElementById("fileInput");
-        const responseDiv = document.getElementById("response");
-
-        uploadButton.addEventListener("click", async () => {
-          const file = fileInput.files[0];
-          if (!file) {
-            responseDiv.textContent = "Please select a file.";
-            return;
-          }
-          console.log(file.name);
-
-          const client = new S3Client({
-            region,
-            endpoint,
-            credentials: {
-              accessKeyId: APPLICATION_KEY_ID,
-              secretAccessKey: APPLICATION_KEY,
-            },
-          });
-
-          const expiresIn = 7 * 24 * 60 * 60;
-          const command = new PutObjectCommand({
-            Bucket: bucket,
-            Key: file.name,
-            Body: "hello",
-          });
-          const signedUrl = await getSignedUrl(client, command, { expiresIn });
-
-          await axios.put(signedUrl, "hello");
-        });
-      });
-    </script>
+    <script type="module" src="main.js"></script>
   </body>
 </html>
