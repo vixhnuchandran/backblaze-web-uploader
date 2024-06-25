@@ -11,6 +11,7 @@
     "vite": "^5.3.1"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.600.0",
     "buffer": "^6.0.3",
     "crypto-js": "^4.2.0"
   }
