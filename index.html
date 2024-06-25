@@ -66,51 +66,8 @@
       <div id="response"></div>
     </div>
 
-    <script type="module">
-      import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
-
-      document.addEventListener("DOMContentLoaded", async () => {
-        const uploadButton = document.getElementById("uploadButton")
-        const fileInput = document.getElementById("fileInput")
-        const responseDiv = document.getElementById("response")
-
-        uploadButton.addEventListener("click", async () => {
-          const file = fileInput.files[0]
-
-          console.log(file)
-          const bucketName = "storybrain-test-bucket"
-          const keyName = Date.now() + "-" + file.name
-
-          if (!file) {
-            responseDiv.textContent = "Please select a file."
-            return
-          }
-          const s3 = new S3Client({
-            endpoint: "https://s3.us-east-005.backblazeb2.com",
-            region: "us-east-005",
-            credentials: {
-              accessKeyId: "0056f9737d378640000000004",
-              secretAccessKey: "K005HKXoNUJOehLHtBj3C9ctEaDDRZg",
-            },
-          })
-
-          try {
-            await s3.send(
-              new PutObjectCommand({
-                Bucket: bucketName,
-                Key: keyName,
-                Body: file,
-              })
-            )
-            const fileUrl = `https://f005.backblazeb2.com/file/${bucketName}/${keyName}`
-
-            responseDiv.textContent = fileUrl
-          } catch (err) {
-            console.log("Error: ", err)
-            responseDiv.textContent = "Upload failes! Try again later."
-          }
-        })
-      })
+    <script type="module" src="main.mjs">
+      
     </script>
   </body>
 </html>
