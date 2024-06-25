@@ -8,7 +8,7 @@
   ],
   "routes": [
     { "src": "/(.*)", "dest": "/index.html" },
-    { "src": "/main.mjs", "dest": "/main.mjs" }
+    { "src": "/upload.js", "dest": "/upload.js" }
 
   ]
 }
