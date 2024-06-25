@@ -68,7 +68,7 @@
     </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", async() => {
         const uploadButton = document.getElementById("uploadButton");
         const fileInput = document.getElementById("fileInput");
         const responseDiv = document.getElementById("response");
@@ -83,7 +83,7 @@
           }
 
           try {
-            // Create the SHA-256 hash of the file data
+
             const reader = new FileReader();
             reader.readAsArrayBuffer(file);
             reader.onload = async () => {
