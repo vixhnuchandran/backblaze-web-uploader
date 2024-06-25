@@ -2,6 +2,7 @@
   "name": "backblaze_test",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,7 +13,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.600.0",
-    "buffer": "^6.0.3",
     "crypto-js": "^4.2.0"
   }
 }
