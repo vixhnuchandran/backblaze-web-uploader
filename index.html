@@ -4,9 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>File Upload to Backblaze B2</title>
-    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        background-color: #fff;
+        padding: 20px 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .file-input {
+        margin-bottom: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #218838;
+      }
+
+      #response {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        word-break: break-all;
+      }
+    </style>
 
     <div class="container">
       <h1>Upload File to Backblaze B2</h1>
@@ -15,6 +65,48 @@
       <div id="response"></div>
     </div>
 
-    <script type="module" src="main.js"></script>
+    <script type="module">
+      import axios from "axios"
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const uploadButton = document.getElementById("uploadButton")
+        const fileInput = document.getElementById("fileInput")
+        const responseDiv = document.getElementById("response")
+
+        uploadButton.addEventListener("click", async () => {
+          const file = fileInput.files[0]
+          const filename = Date.now() + "-" + file.name
+          if (!file) {
+            responseDiv.textContent = "Please select a file."
+            return
+          }
+
+          console.log(file)
+
+          try {
+            const config = {
+              method: "put",
+              maxBodyLength: Infinity,
+              url: `https://s3.us-east-005.backblazeb2.com/storybrain-test-bucket/${filename}`,
+              headers: {
+                "Content-Type": file.type,
+                "X-Amz-Date": Date.now(),
+                Authorization:
+                  "AWS4-HMAC-SHA256 Credential=0056f9737d378640000000003/20240625/us-east-1/execute-api/aws4_request, SignedHeaders=content-length;content-type;host;x-amz-date, Signature=06c62bfe2733184977e406cdd699589bc3434caed8fef4e2ea44e813b4538cf8",
+              },
+              data: file,
+            }
+
+            const response = await axios.request(config)
+            const fileUrl = `https://f005.backblazeb2.com/file/storybrain-test-bucket/${filename}`
+            responseDiv.textContent = fileUrl
+            console.log("Upload response:", response.data)
+          } catch (error) {
+            responseDiv.textContent = `Error uploading file: ${error}`
+            console.error("Upload error:", error)
+          }
+        })
+      })
+    </script>
   </body>
 </html>
